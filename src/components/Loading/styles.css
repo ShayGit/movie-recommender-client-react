@@ -1,0 +1,9 @@
+.loading {
+    display: block !important;
+  }
+
+.loading-icon-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

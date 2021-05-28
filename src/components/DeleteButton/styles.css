@@ -1,0 +1,19 @@
+.delete-button{
+    position: absolute;
+    top: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 0.9rem;
+    background:  var(--theme-delete-button);
+    font-size: 1.5rem;
+    width: 2rem;
+    border-radius: 0.6rem;
+    height: 2rem;
+}
+
+.delete-button:hover{
+    transform: scale(1.1);
+    transition: all 0.2s ease-in-out 0s;
+    cursor: pointer;
+}

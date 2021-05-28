@@ -1,24 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import "./styles/themes.css";
+import React, { useEffect, useState } from "react";
+import {
+  Route,
+  BrowserRouter as Router,
+  Switch,
+} from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute";
+import SigninScreen from "./screens/SigninScreen";
+import SignupScreen from "./screens/SignupScreen";
+import { useDispatch, useSelector } from "react-redux";
+import Header from "./components/Header";
+import ContentScreen from "./screens/ContentScreen";
+import { validateToken } from "./slices/userSlice";
 
-function App() {
+function App(props) {
+  const [theme, setTheme] = useState("dark");
+  const { userInfo } = useSelector((state) => state.user);
+
+
+  const dispatch = useDispatch();
+  const toggleTheme = () => {
+    setTheme(theme == "dark" ? "light" : "dark");
+  };
+
+  useEffect(() => {
+    if (userInfo) {
+      dispatch(validateToken());
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className={`App ${theme}`}>
+        <Header userInfo={userInfo} toggleTheme={toggleTheme} />
+        <main className="app-main">
+          <Switch>
+            <Route exact path="/signin" name="Signin Page">
+              <SigninScreen />
+            </Route>
+            <Route exact path="/signup" name="Signup Page">
+              <SignupScreen />
+            </Route>
+            <PrivateRoute name="Home" path="/">
+              <ContentScreen />
+            </PrivateRoute>
+          </Switch>
+        </main>
+      </div>
+    </Router>
   );
 }
 

@@ -1,0 +1,24 @@
+
+.light {
+    --theme-color: #A80000;
+    --theme-page-background: rgb(255, 255, 255);
+    --theme-page-text: #111;
+    --theme-form-color: rgb(163, 114, 114);
+    --theme-page-input: #FFF;
+    --theme-header:rgb(119, 85, 85);
+    --theme-dropdown:rgb(167, 139, 139);
+    --theme-movie-card: rgb(224, 223, 223);
+    --theme-delete-button: #f0c040;
+}
+
+.dark {
+    --theme-color: #0000A8;
+    --theme-page-background: rgb(37, 37, 37);
+    --theme-page-text: #FFF;
+    --theme-page-input: #FFF;
+    --theme-form-color: whitesmoke;
+    --theme-header:black;
+    --theme-dropdown:#404040;
+    --theme-movie-card: rgb(80, 80, 80);
+    --theme-delete-button: #a02020;
+}
