@@ -7,8 +7,9 @@
     --theme-page-input: #FFF;
     --theme-header:rgb(119, 85, 85);
     --theme-dropdown:rgb(167, 139, 139);
-    --theme-movie-card: rgb(224, 223, 223);
+    --theme-movie-card: rgb(255, 255, 255);
     --theme-delete-button: #f0c040;
+    --bm-menu: rgb(65, 46, 46);
 }
 
 .dark {
@@ -21,4 +22,5 @@
     --theme-dropdown:#404040;
     --theme-movie-card: rgb(80, 80, 80);
     --theme-delete-button: #a02020;
+    --bm-menu: #373a47;
 }

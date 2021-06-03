@@ -10,7 +10,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import SigninScreen from "./screens/SigninScreen";
 import SignupScreen from "./screens/SignupScreen";
 import { useDispatch, useSelector } from "react-redux";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import ContentScreen from "./screens/ContentScreen";
 import { validateToken } from "./slices/userSlice";
 
@@ -33,6 +33,7 @@ function App(props) {
   return (
     <Router>
       <div className={`App ${theme}`}>
+        
         <Header userInfo={userInfo} toggleTheme={toggleTheme} />
         <main className="app-main">
           <Switch>

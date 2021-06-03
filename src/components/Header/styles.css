@@ -1,0 +1,62 @@
+@media only screen and (min-width: 900px) {
+    .small-header{
+      display: none !important;
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    .large-header{
+      display: none !important;
+    }
+  }
+  .small-header{
+    display: flex;
+    justify-content: space-between;
+    height: 5rem;
+    background-color: var(--theme-header);
+    flex-wrap: wrap;
+  }
+
+  .App-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 5rem;
+    background-color: var(--theme-header);
+    flex-wrap: wrap;
+    padding: 0 3rem;
+  }
+
+  .App-logo {
+    
+    font-weight: bold;
+    font-size: 2rem;
+  }
+
+  .dropdown{
+    margin: 0 3rem 0 1rem;
+    display: inline-block;
+    position: relative;
+  }
+
+  .dropdown-content{
+    position: absolute;
+    right : 0 ;
+    min-width: 10rem;
+    padding: 1rem 2rem;
+    z-index: 1;
+    background-color: var(--theme-dropdown);
+    margin: 0;
+    margin-top: 0.5rem;
+    border-radius: 0.5rem;
+  }
+
+  .inner-item{
+      padding:0 !important;
+  }
+
+  .header-buttons{
+    display: flex;
+    justify-content: space-evenly;
+    width: 20rem;
+  }

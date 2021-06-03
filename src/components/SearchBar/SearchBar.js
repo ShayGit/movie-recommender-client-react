@@ -5,7 +5,7 @@ import "./styles.css";
 import SearchMovieItem from "./SearchMovieItem";
 import MessageBox from "../MessageBox";
 import { fetchMoviesData, searchMovies, setOrUpdateRatingData } from "../../slices/moviesSlice";
-
+import ReactDOM from 'react-dom';
 const SearchBar = () => {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [page, setPage] = useState(1);
@@ -40,16 +40,14 @@ const setRating = async (movieId, rating)=>{
   setPage(1)
 }
 
+
 const handleScroll = (e) => {
-  const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
-  if (bottom) { 
-      console.log("bottom")
-      if(page!==maxPage){
-        dispatch(searchMovies({searchPhrase:searchPhrase,page:page+1}))
-        setPage(page+1)
-      }
-      
+  const bottom = Math.floor(e.target.scrollHeight) - Math.floor(e.target.scrollTop) === Math.floor(e.target.clientHeight) ;
+  if (bottom &&page!==maxPage) { 
+        dispatch( searchMovies({searchPhrase:searchPhrase,page:page+1}))
+        setPage(page+1); 
   }
+  
 }
 
   return (
@@ -61,16 +59,17 @@ const handleScroll = (e) => {
         onChange={handleSearch}
       />
       {searchPhrase && (
-        <div className="search-results-container" onScroll={handleScroll}>
+        <div className="search-results-container" onScroll={handleScroll} >
          
-           
+          
            {movies && movies.map((movie) => (
             <SearchMovieItem key={movie.id} movie={movie} onRating={setRating}/>
-          ))}
+          ))} 
           {status === "failed"? <MessageBox variant="danger">{errors}</MessageBox> :
+          status === "loading" ?<LoadingIcon size="fa-3x"/>:
           movies.length===0 &&
               <MessageBox variant="info">{"Movie not found or already rated."}</MessageBox>}
-           {status === "loading" && <LoadingIcon size="fa-3x"/> }
+          
           
         </div>
         

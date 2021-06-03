@@ -9,12 +9,15 @@ const MovieCard = ({rating, onRatingChange,deleteRating}) => {
           {rating.id&&
           <DeleteButton deleteRating={()=>deleteRating(rating.id)}/>}
           <img alt={`${rating.movie.title}`} className="movie-image" src={rating.movie.image}/>
-          <label>
+          
+          <div className="movie-label">
               {rating.movie.title}
-          </label>
-          <div>
-              <Rating rating={rating.rating} onRatingChange={(ratingValue)=>onRatingChange(rating.id?rating.id:"",rating.movie.id,ratingValue)}/>
           </div>
+          <div>
+          <Rating rating={rating.rating} onRatingChange={(ratingValue)=>onRatingChange(rating.id?rating.id:"",rating.movie.id,ratingValue)}/>
+          </div>
+             
+          
       </div>
   );
 };
