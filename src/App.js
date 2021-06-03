@@ -12,7 +12,7 @@ import SignupScreen from "./screens/SignupScreen";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "./components/Header/Header";
 import ContentScreen from "./screens/ContentScreen";
-import { validateToken } from "./slices/userSlice";
+import {  signin, validateToken } from "./slices/userSlice";
 
 function App(props) {
   const [theme, setTheme] = useState("dark");
@@ -27,6 +27,9 @@ function App(props) {
   useEffect(() => {
     if (userInfo) {
       dispatch(validateToken());
+    }
+    else{
+      dispatch(signin({username:"guest1",password:"1234guest"}));
     }
   }, []);
 
