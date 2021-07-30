@@ -10,7 +10,7 @@ instance.interceptors.request.use(
   async (config) => {
     
     const token = localStorage.getItem("userInfo")
-      ? JSON.parse(localStorage.getItem("userInfo")).token
+      ? JSON.parse(localStorage.getItem("userInfo")).tokens.access
       : null;
     token && !config.headers.Authorization && (config.headers.Authorization = `Bearer ${token}`);
     return config;

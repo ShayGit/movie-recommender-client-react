@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, Redirect, useLocation } from 'react-router-dom'
+import { Link, Redirect, useHistory, useLocation } from 'react-router-dom'
 import LoadingBox from '../components/Loading/LoadingBox'
 import MessageBox from '../components/MessageBox'
 import { init, signin } from '../slices/userSlice'
@@ -12,24 +12,22 @@ const SigninScreen = (props) => {
     const { status, errors, userInfo } = useSelector((state) => state.user);
 
     const dispatch = useDispatch()
-    const location = useLocation();
-    const { from } = location.state || { from: { pathname: "/" } };
-
+  const history = useHistory()
     const submitHandler=(e)=>{
         e.preventDefault()
         dispatch(signin({username, password}))
     }
   
+    if(userInfo){
+      history.push("/")
+    }
+
     useEffect(() => {
       if (!userInfo) {
       dispatch(init())
       }
     }, [dispatch, userInfo])
-    if(userInfo){
-      return(
-        <Redirect to={from}/>
-      )
-    }
+   
     return (
         <form className="form" onSubmit={submitHandler}>
           <div>

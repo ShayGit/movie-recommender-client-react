@@ -5,17 +5,22 @@ export const validateTokenApi = async (token) =>
     headers: { Authorization: `Bearer ${token}` },
   });
 
+  export const refreshTokenApi = async (token) =>
+  await api.post("/api/auth/token/refresh/", {
+    refresh:token
+  });
+
 export const signinApi = async ({ username, password }) => {
   const res1 = await api.post("/api/auth/token/", {
     username,
     password,
   });
-  const token = res1.data.access;
+  const tokens = res1.data;
   const res2 = await api.get("/api/auth/account/", {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: { Authorization: `Bearer ${tokens.access}` },
   });
   const data = {
-    token,
+    tokens,
     ...res2.data,
   };
   return data;

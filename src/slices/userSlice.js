@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { signinApi, signupApi, validateTokenApi } from "../api/serverCalls";
+import {
+  signinApi,
+  signupApi,
+  validateTokenApi,
+  refreshTokenApi,
+} from "../api/serverCalls";
 
 const initialState = {
   userInfo: localStorage.getItem("userInfo")
@@ -10,26 +15,42 @@ const initialState = {
 };
 
 export const validateToken = createAsyncThunk(
-    "user/validate",
-    async (arg, { rejectWithValue ,getState}) => {
-      try {
-        const token = getState().user.userInfo.token
-        const response = await validateTokenApi(token)
-        const data = {
-            token: token,
-            ...response.data,
-          };
-        localStorage.setItem("userInfo", JSON.stringify(data));
+  "user/validate",
+  async (arg, { rejectWithValue, getState }) => {
+    const tokens = getState().user.userInfo.tokens;
+    try {
+      
+      const response = await validateTokenApi(tokens.access);
+      const data = {
+        tokens,
+        ...response.data,
+      };
+      localStorage.setItem("userInfo", JSON.stringify(data));
 
+      return data;
+    } catch (error) {
+      try {
+        const refreshToken = tokens.refresh;
+        const res = await refreshTokenApi(refreshToken);
+        const accessToken  =res.data.access
+        const response = await validateTokenApi(accessToken);
+        const data = {
+          tokens: {
+            access:accessToken,
+            refresh:refreshToken
+          },
+          ...response.data,
+        };
+        localStorage.setItem("userInfo", JSON.stringify(data));
         return data;
       } catch (error) {
-        let message ='Token expired or missing, please sign in.'
-  
-        localStorage.removeItem("userInfo");
-        return rejectWithValue(message);
+        let message = "Token expired or missing, please sign in.";
+      localStorage.removeItem("userInfo");
+      return rejectWithValue(message);
       }
     }
-  );
+  }
+);
 
 export const signin = createAsyncThunk(
   "user/signin",
@@ -91,24 +112,23 @@ const userSlice = createSlice({
   },
   extraReducers: {
     [validateToken.pending]: (state, action) => {
-        state.status = "loading";
-      },
-      [validateToken.fulfilled]: (state, action) => {
-        state.status = "succeeded";
-        state.userInfo = action.payload;
-      },
-      [validateToken.rejected]: (state, action) => {
-        state.status = "failed";
-        state.userInfo = null;
-        state.errors = action.payload;
-      },
+      state.status = "loading";
+    },
+    [validateToken.fulfilled]: (state, action) => {
+      state.status = "succeeded";
+      state.userInfo = action.payload;
+    },
+    [validateToken.rejected]: (state, action) => {
+      state.status = "failed";
+      state.userInfo = null;
+      state.errors = action.payload;
+    },
     [signin.pending]: (state, action) => {
       state.status = "loading";
     },
     [signin.fulfilled]: (state, action) => {
       state.status = "succeeded";
       state.userInfo = action.payload;
-      
     },
     [signin.rejected]: (state, action) => {
       state.status = "failed";

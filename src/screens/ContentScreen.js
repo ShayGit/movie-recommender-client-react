@@ -10,11 +10,13 @@ const ContentScreen = () => {
   const { moviesRecommendation, moviesRated, status, errors } = useSelector(
     (state) => state.movies
   );
+  const {  userInfo } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchMoviesData());
-  }, []);
+  }, [userInfo]);
+  
   return (
     <Switch>
       <Route name="home" exact path="/">

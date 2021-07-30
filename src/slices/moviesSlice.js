@@ -24,8 +24,13 @@ const initialState = {
       } catch (error) {
         let message = "";
         if (error.response && error.response.data) {
-          for (const [key, value] of Object.entries(error.response.data)) {
-            message += `${key}- ${value} \n`;
+          if(error.response.status===401){
+            message = "Token expired or missing, please sign in again."
+          }
+          else{
+            for (const [key, value] of Object.entries(error.response.data)) {
+              message += `${key}- ${value} \n`;
+            }
           }
         } else if (error.message) {
           message = error.message;
@@ -47,8 +52,13 @@ const initialState = {
       } catch (error) {
         let message = "";
         if (error.response && error.response.data) {
-          for (const [key, value] of Object.entries(error.response.data)) {
-            message += `${key}- ${value} \n`;
+          if(error.response.status===401){
+            message = "Token expired or missing, please sign in again."
+          }
+          else{
+            for (const [key, value] of Object.entries(error.response.data)) {
+              message += `${key}- ${value} \n`;
+            }
           }
         } else if (error.message) {
           message = error.message;
@@ -68,8 +78,13 @@ const initialState = {
       } catch (error) {
         let message = "";
         if (error.response && error.response.data) {
-          for (const [key, value] of Object.entries(error.response.data)) {
-            message += `${key}- ${value} \n`;
+          if(error.response.status===401){
+            message = "Token expired or missing, please sign in again."
+          }
+          else{
+            for (const [key, value] of Object.entries(error.response.data)) {
+              message += `${key}- ${value} \n`;
+            }
           }
         } else if (error.message) {
           message = error.message;
@@ -89,8 +104,13 @@ const initialState = {
       } catch (error) {
         let message = "";
         if (error.response && error.response.data) {
-          for (const [key, value] of Object.entries(error.response.data)) {
-            message += `${key}- ${value} \n`;
+          if(error.response.status===401){
+            message = "Token expired or missing, please sign in again."
+          }
+          else{
+            for (const [key, value] of Object.entries(error.response.data)) {
+              message += `${key}- ${value} \n`;
+            }
           }
         } else if (error.message) {
           message = error.message;
